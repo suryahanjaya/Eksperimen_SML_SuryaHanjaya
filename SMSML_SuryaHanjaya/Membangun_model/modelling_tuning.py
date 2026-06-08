@@ -6,6 +6,12 @@ Logs: best params, all metrics, confusion matrix image, classification report tx
 Author: Surya Hanjaya
 """
 
+import sys
+
+# Reconfigure stdout to use UTF-8 to prevent UnicodeEncodeError from MLflow emojis on Windows
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
+
 import os
 import json
 import tempfile
