@@ -1,6 +1,6 @@
 """
 modelling.py
-Training baseline Random Forest model with manual MLflow logging to DagsHub.
+Training baseline Random Forest model using MLflow autolog().
 Author: Surya Hanjaya
 """
 
@@ -117,18 +117,6 @@ def main():
         print(f"[INFO] Precision : {prec:.4f}")
         print(f"[INFO] Recall    : {rec:.4f}")
         print(f"[INFO] F1-Score  : {f1:.4f}")
-
-        # ── MLflow logging (autolog is active, so we log test metrics and metadata manually) ──
-        mlflow.log_param("test_size",  0.2)
-        mlflow.log_param("stratify",   True)
-        mlflow.log_param("train_rows", X_train.shape[0])
-        mlflow.log_param("test_rows",  X_test.shape[0])
-        mlflow.log_param("n_features", X_train.shape[1])
-
-        mlflow.log_metric("accuracy",  acc)
-        mlflow.log_metric("precision", prec)
-        mlflow.log_metric("recall",    rec)
-        mlflow.log_metric("f1_score",  f1)
 
         print(f"[SUCCESS] Run logged to DagsHub MLflow!")
         print(f"  Tracking URI : {mlflow.get_tracking_uri()}")
