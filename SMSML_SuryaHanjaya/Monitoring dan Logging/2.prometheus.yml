@@ -1,0 +1,47 @@
+# Prometheus configuration for Adult Income Classifier monitoring
+# Author: Surya Hanjaya
+
+global:
+  scrape_interval:     15s   # Poll metrics every 15 seconds
+  evaluation_interval: 15s   # Evaluate alert rules every 15 seconds
+  scrape_timeout:      10s
+
+# Alertmanager configuration (optional — uncomment if using Alertmanager)
+# alerting:
+#   alertmanagers:
+#     - static_configs:
+#         - targets: ['localhost:9093']
+
+# Alert rules files
+rule_files:
+  - "alert_rules.yml"
+
+# Scrape configurations
+scrape_configs:
+
+  # ── Prometheus self-monitoring ────────────────────────────────
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+    metrics_path: /metrics
+
+  # ── Adult Income Classifier — Inference API metrics ───────────
+  - job_name: 'adult_income_inference'
+    static_configs:
+      - targets: ['host.docker.internal:8002']
+    metrics_path: /metrics
+    scrape_interval: 10s
+    scrape_timeout: 8s
+    honor_labels: true
+    params:
+      format: ['prometheus']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'inference-api'
+
+  # ── Node Exporter — system-level metrics (optional) ──────────
+  # Uncomment jika sudah install node_exporter
+  # - job_name: 'node_exporter'
+  #   static_configs:
+  #     - targets: ['localhost:9100']
