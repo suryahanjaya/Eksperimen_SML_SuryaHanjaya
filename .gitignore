@@ -1,4 +1,4 @@
-﻿# Python
+# Python
 __pycache__/
 *.pyc
 .env
@@ -10,3 +10,7 @@ __pycache__/
 
 # MLflow runs (local only)
 mlruns/
+
+# Ignore nested repositories from parent tracker
+adult-income-classifier-repo/
+Workflow-CI-repo/
