@@ -1,0 +1,12 @@
+﻿# Python
+__pycache__/
+*.pyc
+.env
+
+# Large files (sudah ada di repo sebagai artifact)
+# Uncomment baris di bawah jika tidak ingin push CSV besar:
+# preprocessing/adult_income_preprocessed.csv
+# MLProject/adult_income_preprocessed.csv
+
+# MLflow runs (local only)
+mlruns/
